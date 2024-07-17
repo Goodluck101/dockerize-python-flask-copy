@@ -2,7 +2,7 @@
 
 1. Clone the repo
 ```
-git clone https://github.com/IBT-learning/dockerize-python-flask
+git clone https://github.com/Goodluck101/dockerize-python-flask-copy.git
 ```
 2. Create a Dockerfile
 
@@ -19,13 +19,13 @@ CMD: Specifies the default command to run when the container starts.
 3. Build your image
 
 ```
-docker build -t myflask:v1.0.0 .
+docker build -t myflask:v2.0.1 .
 ```
 
 4. Run your docker container
 
 ```
-docker run -d -p 8337:3000 myflask:v1.0.0
+docker run -d -p 8337:5000 myflask:v1.0.0
 ```
 
 5. Verify your container started
