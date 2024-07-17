@@ -25,7 +25,7 @@ docker build -t myflask:v2.0.1 .
 4. Run your docker container
 
 ```
-docker run -d -p 8337:5000 myflask:v1.0.0
+docker run -d -p 8337:5000 myflask:v2.0.1
 ```
 
 5. Verify your container started
