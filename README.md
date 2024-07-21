@@ -25,7 +25,7 @@ docker build -t myflask:v2.0.1 .
 4. Run your docker container
 
 ```
-docker run -d -p 8337:5000 myflask:v2.0.1
+docker run -d -p 7711:5000 myflask:v2.0.1
 ```
 
 5. Verify your container started
@@ -43,7 +43,7 @@ docker logs <container-id>
 6. Test your container
 
 ```
-curl http://localhost:8337
+curl http://localhost:7711
 ```
 
 # Challenage
@@ -52,4 +52,4 @@ Create a docker compose file for your application
 
 # Having issues with the basic lab? Here is the solution steps:
 
-https://gist.github.com/devopswithbrad/77ad3255cdf21edb2da29fa46cb5a77a
+https://github.com/Goodluck101/dockerize-python-flask-copy.git
