@@ -1,0 +1,57 @@
+STUDENT_NAME="pythonflask"
+VERSION="V1.0.$BUILD_NUMBER"
+IMAGE_NAME="${STUDENT_NAME}-flaskapp"
+REGISTRY_NAME="goodluck101"
+FULL_IMAGE_URI="${REGISTRY_NAME}/${IMAGE_NAME}"
+#PORT
+HOSTPORT="7711"
+APP_PORT="5000"
+
+docker version
+ls -ltra
+cat Dockerfile
+
+#!/bin/bash
+#BUILD STAGE
+docker build -t ${IMAGE_NAME}:${VERSION} .
+#docker build -t ${IMAGE_NAME}:test .
+
+docker images --filter "reference=${IMAGE_NAME}"
+#docker images --filter "reference=flaskapp"
+
+# List Docker images with the filter reference
+docker images --filter reference=${IMAGE_NAME}
+#docker images --filter reference=flaskapp
+
+# List all containers with the name pythonflask and store the container ID
+container_id=$(docker ps -aqf name=${STUDENT_NAME})
+
+# Check if the container ID is not empty before attempting to remove it
+if [ -n "$container_id" ]; then
+  docker rm -f $container_id
+else
+  echo "No container found with the name ${STUDENT_NAME}"
+  #echo "No container found with the name pythonflask"
+fi
+
+# Run a Docker container named pythonflask
+echo "=-=-=-=-= TEST STAGE -=-=-=-=-==-"
+docker run --name ${STUDENT_NAME} -d -p ${HOSTPORT}:${APP_PORT} ${IMAGE_NAME}:${VERSION}
+sleep 5
+#curl -s http://localhost:${HOSTPORT}
+
+# List running containers with the name pythonflask
+docker ps --filter name=${STUDENT_NAME}
+#docker ps --filter name=pythonflask
+curl -s http://localhost:${HOSTPORT}
+
+# Login to Docker Hub (you may be prompted for a password interactively)
+docker login -u ${REGISTRY_NAME} -p $DOCKERHUB_HUB_API_KEY\
+
+docker tag ${IMAGE_NAME}:${VERSION} ${FULL_IMAGE_URI}:${VERSION}
+docker tag ${IMAGE_NAME}:${VERSION} ${FULL_IMAGE_URI}:prod
+#docker tag ${IMAGE_NAME}:test goodluck101/flaskapp:test
+
+docker push ${FULL_IMAGE_URI}:${VERSION}
+docker push ${FULL_IMAGE_URI}:prod
+#docker push goodluck101/flaskapp:test
